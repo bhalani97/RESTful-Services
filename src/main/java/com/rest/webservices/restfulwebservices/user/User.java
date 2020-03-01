@@ -1,7 +1,12 @@
 package com.rest.webservices.restfulwebservices.user;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -9,14 +14,23 @@ import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "Info About User")
+@Entity
 public class User {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
-	@Size(min = 2 , message = "Name should have alteast 2 characters")
-	@ApiModelProperty(notes = "Should be more than 2 Characteres")
+
+	@Size(min = 2, message = "Name should have alteast 2 characters")
+	@ApiModelProperty(notes = "Should be more than 2 Characteres ")
 	private String name;
+
+	public User() {
+		super();
+	}
+
 	@Past
-	@ApiModelProperty(notes = "Should be in past") 
+	@ApiModelProperty(notes = "Should be in past")
 	private Date birthDate;
 
 	public User(Integer id, String name, Date date) {
@@ -48,6 +62,17 @@ public class User {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	@OneToMany(mappedBy = "user")
+	private List<Post> post;
+	
+	public List<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(List<Post> post) {
+		this.post = post;
 	}
 
 	@Override

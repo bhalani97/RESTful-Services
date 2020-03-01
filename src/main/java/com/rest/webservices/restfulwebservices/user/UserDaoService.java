@@ -9,50 +9,50 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserDaoService {
-	
+
 	private static List<User> users = new ArrayList<User>();
 	private static int userCount = 3;
-	
+
 	static {
-		users.add(new User(1,"Divyesh",new Date()));
-		users.add(new User(2,"Viral",new Date()));
-		users.add(new User(3,"Keval",new Date()));
+		users.add(new User(1, "Divyesh", new Date()));
+		users.add(new User(2, "Viral", new Date()));
+		users.add(new User(3, "Keval", new Date()));
 	}
-	
-	public List<User> findAll(){
+
+	public List<User> findAll() {
 		return users;
 	}
-	
+
 	public User save(User user) {
-		if(user.getId()==null) {
+		if (user.getId() == null) {
 			user.setId(++userCount);
 		}
-		
+
 		users.add(user);
 		return user;
-			
+
 	}
-	
+
 	public User findOne(int id) {
-		for(User user:users) {
-			if(user.getId()==id) {
+		for (User user : users) {
+			if (user.getId() == id) {
 				return user;
 			}
 		}
 		return null;
 	}
+
 	public User deleteById(int id) {
 		Iterator<User> iterator = users.iterator();
 		while (iterator.hasNext()) {
 			User user = iterator.next();
-			if(user.getId()==id) {
+			if (user.getId() == id) {
 				iterator.remove();
 				return user;
 			}
-			
+
 		}
 		return null;
 	}
-	
-	
+
 }
